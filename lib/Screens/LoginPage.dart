@@ -167,7 +167,7 @@ class _LandingPageScreenState extends State<LandingPageScreen>
                                 child: ClipOval(
 
                                   child: Image.asset(
-                                    'assets/unnati_logo.jpg',
+                                    'assets/logi.jpg',
                                     height: 120,
                                     width: 120,
                                     fit: BoxFit.cover,
