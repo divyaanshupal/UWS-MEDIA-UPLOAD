@@ -7,17 +7,17 @@ class SchoolButton extends StatelessWidget {
   final bool isLast; // if you want to tweak animation for last button
 
   const SchoolButton({
-    Key? key,
+    super.key,
     required this.title,
     required this.onTap,
     required this.index,
     this.isLast = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder<double>(
-      duration: Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 800),
       tween: Tween(begin: 50.0, end: 0.0),
       curve: Curves.easeOut,
       builder: (context, value, child) {
@@ -30,7 +30,7 @@ class SchoolButton extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     colors: [
                       Color(0xFF1E293B),
                       Color(0xFF334155),
@@ -38,9 +38,9 @@ class SchoolButton extends StatelessWidget {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Color(0xFF1E293B).withOpacity(0.2),
+                      color: const Color(0xFF1E293B).withOpacity(0.2),
                       blurRadius: 15,
-                      offset: Offset(0, 8),
+                      offset: const Offset(0, 8),
                     ),
                   ],
                 ),

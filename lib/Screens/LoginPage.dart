@@ -4,8 +4,21 @@ import 'dart:ui'; // Needed for ImageFilter
 import 'package:flutter/material.dart';
 import 'package:uws/Screens/SchoolScreen.dart';
 
+//import 'package:flutter/foundation.dart'; // Import foundation for kIsWeb
+
+//import 'dart:html' as html;
+import 'package:url_launcher/url_launcher.dart';
+import 'package:uws/widgets/drawer.dart'; // Import url_launcher package
+
+void openUrl(String url) async {
+  final uri = Uri.parse(url);
+  if (!await launchUrl(uri, mode: LaunchMode.platformDefault)) {
+    throw 'Could not launch $url';
+  }
+}
+
 class LandingPageScreen extends StatefulWidget {
-  const LandingPageScreen({Key? key}) : super(key: key);
+  const LandingPageScreen({super.key});
 
   @override
   State<LandingPageScreen> createState() => _LandingPageScreenState();
@@ -13,11 +26,11 @@ class LandingPageScreen extends StatefulWidget {
 
 class _LandingPageScreenState extends State<LandingPageScreen>
     with SingleTickerProviderStateMixin {
-  bool _isTextVisible = true;
+  final bool _isTextVisible = true;
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
   late Animation<double> _fadeAnimation;
-  
+
   // Add these variables for typing animation
   String get _textToType => 'Unnati Welfare Society';
   String _typedText = '';
@@ -29,7 +42,7 @@ class _LandingPageScreenState extends State<LandingPageScreen>
   @override
   void initState() {
     super.initState();
-    
+
     // Setup animations
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1000),
@@ -88,7 +101,7 @@ class _LandingPageScreenState extends State<LandingPageScreen>
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return Scaffold(
+    return MainLayout(
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -97,8 +110,8 @@ class _LandingPageScreenState extends State<LandingPageScreen>
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color(0xFF2C3E50),  // Deep blue-grey
-                  Color(0xFF3498DB),  // Bright blue
+                  Color(0xFF2C3E50), // Deep blue-grey
+                  Color(0xFF3498DB), // Bright blue
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -165,7 +178,6 @@ class _LandingPageScreenState extends State<LandingPageScreen>
                               child: Hero(
                                 tag: 'logo',
                                 child: ClipOval(
-
                                   child: Image.asset(
                                     'assets/unnati_logo.jpg',
                                     height: 120,
@@ -203,13 +215,15 @@ class _LandingPageScreenState extends State<LandingPageScreen>
                                         letterSpacing: 1,
                                       ),
                                     ),
-                                    if (_currentIndex < _textToType.length || _showCursor)
+                                    if (_currentIndex < _textToType.length ||
+                                        _showCursor)
                                       Text(
                                         '|',
                                         style: TextStyle(
                                           fontSize: 28,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.white.withOpacity(_showCursor ? 1 : 0),
+                                          color: Colors.white
+                                              .withOpacity(_showCursor ? 1 : 0),
                                         ),
                                       ),
                                   ],
@@ -227,7 +241,8 @@ class _LandingPageScreenState extends State<LandingPageScreen>
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => SchoolSelectionScreen(),
+                                      builder: (context) =>
+                                          const SchoolSelectionScreen(),
                                     ),
                                   );
                                 },
@@ -239,9 +254,9 @@ class _LandingPageScreenState extends State<LandingPageScreen>
                                     borderRadius: BorderRadius.circular(18),
                                   ),
                                 ),
-                                child: Row(
+                                child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
+                                  children: [
                                     Text(
                                       'Get Started',
                                       style: TextStyle(

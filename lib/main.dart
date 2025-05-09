@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:uws/Screens/LoginPage.dart';
-import 'package:uws/Screens/SchoolScreen.dart';
 
 void main() {
   runApp(const MyApp());
