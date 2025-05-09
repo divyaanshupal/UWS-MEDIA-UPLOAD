@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui'; // Needed for ImageFilter
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:uws/Screens/SchoolScreen.dart';
 
@@ -205,27 +206,50 @@ class _LandingPageScreenState extends State<LandingPageScreen>
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      _typedText,
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        letterSpacing: 1,
-                                      ),
-                                    ),
-                                    if (_currentIndex < _textToType.length ||
-                                        _showCursor)
-                                      Text(
-                                        '|',
-                                        style: TextStyle(
-                                          fontSize: 28,
+                                    // Text(
+                                    //   _typedText,
+                                    //   textAlign: TextAlign.center,
+                                    //   style: const TextStyle(
+                                    //     fontSize: 28,
+                                    //     fontWeight: FontWeight.bold,
+                                    //     color: Colors.white,
+                                    //     letterSpacing: 1,
+                                    //   ),
+                                    // ),
+                                    // if (_currentIndex < _textToType.length ||
+                                    //     _showCursor)
+                                    //   Text(
+                                    //     '|',
+                                    //     style: TextStyle(
+                                    //       fontSize: 28,
+                                    //       fontWeight: FontWeight.bold,
+                                    //       color: Colors.white
+                                    //           .withOpacity(_showCursor ? 1 : 0),
+                                    //     ),
+                                    //   ),
+
+                                    //animated text kit usage for typewriter effect
+                                    SizedBox(
+                                      width: 250.0,
+                                      child: DefaultTextStyle(
+                                        style: const TextStyle(
+                                          fontSize: 24.0,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.white
-                                              .withOpacity(_showCursor ? 1 : 0),
+                                          color: Colors.white,
+                                        ),
+                                        child: AnimatedTextKit(
+                                          repeatForever: true,
+                                          animatedTexts: [
+                                            TypewriterAnimatedText(
+                                              'Unnati Welfare Society',
+                                              speed: const Duration(
+                                                  milliseconds: 70),
+                                              cursor: '|',
+                                            ),
+                                          ],
                                         ),
                                       ),
+                                    ),
                                   ],
                                 ),
                               ],

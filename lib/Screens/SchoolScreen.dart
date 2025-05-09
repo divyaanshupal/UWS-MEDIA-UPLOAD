@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:uws/Screens/OtherScreen.dart';
+import 'package:uws/widgets/drawer.dart';
 
 void openUrl(String url) async {
   final uri = Uri.parse(url);
@@ -37,7 +38,7 @@ class SchoolSelectionScreen extends StatelessWidget {
     final schools = schoolDriveLinks.keys.toList();
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
+    return MainLayout(
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(

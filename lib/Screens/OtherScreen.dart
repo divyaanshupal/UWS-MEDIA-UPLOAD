@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter/foundation.dart'; // for kIsWeb
+import 'package:flutter/foundation.dart';
+import 'package:uws/widgets/drawer.dart'; // for kIsWeb
 
 class Otherscreen extends StatelessWidget {
   const Otherscreen({super.key});
@@ -38,7 +39,7 @@ class Otherscreen extends StatelessWidget {
     final schools = schoolDriveLinks.keys.toList();
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
+    return MainLayout(
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
