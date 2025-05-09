@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:uws/Screens/LoginPage.dart';
+import 'package:uws/Screens/OtherScreen.dart';
+import 'package:uws/Screens/SchoolScreen.dart';
 
 class MainLayout extends StatelessWidget {
   final Widget body;
@@ -9,27 +12,54 @@ class MainLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
+        backgroundColor: const Color.fromARGB(255, 119, 177, 232),
         child: ListView(
           padding: EdgeInsets.zero,
-          children: const [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
+          children: [
+            SizedBox(
+              height: 78,
+              child: DrawerHeader(
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 249, 249, 249),
+                ),
+                child: Image.asset(
+                  'assets/unnati moto.jpg',
+                  fit: BoxFit.cover,
+                ),
               ),
-              child: Text('Menu',
-                  style: TextStyle(color: Colors.white, fontSize: 24)),
             ),
             ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const LandingPageScreen()),
+                );
+              },
+              leading: const Icon(Icons.home),
+              title: const Text('Home'),
             ),
             ListTile(
-              leading: Icon(Icons.edit),
-              title: Text('Schools'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SchoolSelectionScreen()),
+                );
+              },
+              leading: const Icon(Icons.school),
+              title: const Text('Schools'),
             ),
             ListTile(
-                leading: Icon(Icons.school_sharp),
-                title: Text("Other Programs"))
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Otherscreen()),
+                  );
+                },
+                leading: const Icon(Icons.arrow_right),
+                title: const Text("Other Programs"))
           ],
         ),
       ),
@@ -37,11 +67,12 @@ class MainLayout extends StatelessWidget {
         children: [
           body, // Main content
           Positioned(
-            top: 40,
+            top: 16,
             left: 16,
             child: Builder(
               builder: (context) => IconButton(
-                icon: const Icon(Icons.menu, size: 30, color: Colors.black),
+                icon: const Icon(Icons.menu,
+                    size: 30, color: Color.fromARGB(255, 248, 246, 246)),
                 onPressed: () => Scaffold.of(context).openDrawer(),
               ),
             ),
