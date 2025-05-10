@@ -1,4 +1,7 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:uws/Screens/LoginPage.dart';
 import 'package:uws/Screens/OtherScreen.dart';
 import 'package:uws/Screens/SchoolScreen.dart';
@@ -30,33 +33,21 @@ class MainLayout extends StatelessWidget {
             ),
             ListTile(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const LandingPageScreen()),
-                );
+                GoRouter.of(context).go('/');
               },
               leading: const Icon(Icons.home),
               title: const Text('Home'),
             ),
             ListTile(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SchoolSelectionScreen()),
-                );
+                GoRouter.of(context).go('/schools');
               },
               leading: const Icon(Icons.school),
               title: const Text('Schools'),
             ),
             ListTile(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const Otherscreen()),
-                  );
+                  GoRouter.of(context).go('/programs');
                 },
                 leading: const Icon(Icons.arrow_right),
                 title: const Text("Other Programs"))

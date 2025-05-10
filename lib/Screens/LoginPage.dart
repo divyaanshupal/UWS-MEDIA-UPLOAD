@@ -3,6 +3,7 @@ import 'dart:ui'; // Needed for ImageFilter
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:uws/Screens/SchoolScreen.dart';
 
 //import 'package:flutter/foundation.dart'; // Import foundation for kIsWeb
@@ -262,13 +263,7 @@ class _LandingPageScreenState extends State<LandingPageScreen>
                               height: 56,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SchoolSelectionScreen(),
-                                    ),
-                                  );
+                                  GoRouter.of(context).go('/schools');
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.white,

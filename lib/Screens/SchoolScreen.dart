@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:uws/Screens/OtherScreen.dart';
@@ -223,13 +224,7 @@ class SchoolSelectionScreen extends StatelessWidget {
                                     child: InkWell(
                                       borderRadius: BorderRadius.circular(20),
                                       onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const Otherscreen(),
-                                          ),
-                                        );
+                                        GoRouter.of(context).go('/programs');
                                       },
                                       child: Container(
                                         padding: const EdgeInsets.symmetric(
