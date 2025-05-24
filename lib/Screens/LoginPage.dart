@@ -1,11 +1,26 @@
 import 'dart:async';
 import 'dart:ui'; // Needed for ImageFilter
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:uws/Screens/SchoolScreen.dart';
 
+//import 'package:flutter/foundation.dart'; // Import foundation for kIsWeb
+
+//import 'dart:html' as html;
+import 'package:url_launcher/url_launcher.dart';
+import 'package:uws/widgets/drawer.dart'; // Import url_launcher package
+
+void openUrl(String url) async {
+  final uri = Uri.parse(url);
+  if (!await launchUrl(uri, mode: LaunchMode.platformDefault)) {
+    throw 'Could not launch $url';
+  }
+}
+
 class LandingPageScreen extends StatefulWidget {
-  const LandingPageScreen({Key? key}) : super(key: key);
+  const LandingPageScreen({super.key});
 
   @override
   State<LandingPageScreen> createState() => _LandingPageScreenState();
@@ -13,11 +28,11 @@ class LandingPageScreen extends StatefulWidget {
 
 class _LandingPageScreenState extends State<LandingPageScreen>
     with SingleTickerProviderStateMixin {
-  bool _isTextVisible = true;
+  final bool _isTextVisible = true;
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
   late Animation<double> _fadeAnimation;
-  
+
   // Add these variables for typing animation
   String get _textToType => 'Unnati Welfare Society';
   String _typedText = '';
@@ -29,7 +44,7 @@ class _LandingPageScreenState extends State<LandingPageScreen>
   @override
   void initState() {
     super.initState();
-    
+
     // Setup animations
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1000),
@@ -88,7 +103,7 @@ class _LandingPageScreenState extends State<LandingPageScreen>
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return Scaffold(
+    return MainLayout(
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -97,8 +112,8 @@ class _LandingPageScreenState extends State<LandingPageScreen>
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color(0xFF2C3E50),  // Deep blue-grey
-                  Color(0xFF3498DB),  // Bright blue
+                  Color(0xFF2C3E50), // Deep blue-grey
+                  Color(0xFF3498DB), // Bright blue
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -165,7 +180,6 @@ class _LandingPageScreenState extends State<LandingPageScreen>
                               child: Hero(
                                 tag: 'logo',
                                 child: ClipOval(
-
                                   child: Image.asset(
                                     'assets/logi.jpg',
                                     height: 120,
@@ -193,25 +207,50 @@ class _LandingPageScreenState extends State<LandingPageScreen>
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      _typedText,
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        letterSpacing: 1,
-                                      ),
-                                    ),
-                                    if (_currentIndex < _textToType.length || _showCursor)
-                                      Text(
-                                        '|',
-                                        style: TextStyle(
-                                          fontSize: 28,
+                                    // Text(
+                                    //   _typedText,
+                                    //   textAlign: TextAlign.center,
+                                    //   style: const TextStyle(
+                                    //     fontSize: 28,
+                                    //     fontWeight: FontWeight.bold,
+                                    //     color: Colors.white,
+                                    //     letterSpacing: 1,
+                                    //   ),
+                                    // ),
+                                    // if (_currentIndex < _textToType.length ||
+                                    //     _showCursor)
+                                    //   Text(
+                                    //     '|',
+                                    //     style: TextStyle(
+                                    //       fontSize: 28,
+                                    //       fontWeight: FontWeight.bold,
+                                    //       color: Colors.white
+                                    //           .withOpacity(_showCursor ? 1 : 0),
+                                    //     ),
+                                    //   ),
+
+                                    //animated text kit usage for typewriter effect
+                                    SizedBox(
+                                      width: 250.0,
+                                      child: DefaultTextStyle(
+                                        style: const TextStyle(
+                                          fontSize: 24.0,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.white.withOpacity(_showCursor ? 1 : 0),
+                                          color: Colors.white,
+                                        ),
+                                        child: AnimatedTextKit(
+                                          repeatForever: true,
+                                          animatedTexts: [
+                                            TypewriterAnimatedText(
+                                              'Unnati Welfare Society',
+                                              speed: const Duration(
+                                                  milliseconds: 70),
+                                              cursor: '|',
+                                            ),
+                                          ],
                                         ),
                                       ),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -224,12 +263,7 @@ class _LandingPageScreenState extends State<LandingPageScreen>
                               height: 56,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => SchoolSelectionScreen(),
-                                    ),
-                                  );
+                                  GoRouter.of(context).go('/schools');
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.white,
@@ -239,9 +273,9 @@ class _LandingPageScreenState extends State<LandingPageScreen>
                                     borderRadius: BorderRadius.circular(18),
                                   ),
                                 ),
-                                child: Row(
+                                child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
+                                  children: [
                                     Text(
                                       'Get Started',
                                       style: TextStyle(
